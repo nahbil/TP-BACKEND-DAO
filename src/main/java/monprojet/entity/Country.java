@@ -2,7 +2,8 @@ package monprojet.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
 import lombok.*;
 
 // Un exemple d'entité
@@ -11,9 +12,10 @@ import lombok.*;
 @Getter @Setter @NoArgsConstructor @RequiredArgsConstructor @ToString
 @Entity // Une entité JPA
 public class Country {
+    // Identifiant technique
     @Id  @GeneratedValue(strategy = GenerationType.IDENTITY) 
     private Integer id;
-
+    // Identifiant métier (code ISO)
     @Column(unique=true)
     @NonNull
     private String code;
@@ -23,7 +25,7 @@ public class Country {
     private String name;
 
     @OneToMany(mappedBy="country")
-    // Essayer sans "mappedBy" pour voir le schémma relationnel généré
+    // Essayer sans "mappedBy" pour voir le schéma relationnel généré
     // @OneToMany
     // Lombok https://www.projectlombok.org/features/ToString
     @ToString.Exclude // On ne veut pas inclure la liste des villes dans le toString

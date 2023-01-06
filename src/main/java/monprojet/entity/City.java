@@ -1,10 +1,6 @@
 package monprojet.entity;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -22,6 +18,7 @@ public class City {
     private Integer id;
 
     @NonNull
+    @Size(min = 2)
     private String name;
 
     private int population;
