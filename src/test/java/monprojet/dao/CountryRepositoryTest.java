@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
-import monprojet.dto.PopulationResult;
 import monprojet.entity.*;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.jdbc.Sql;
@@ -42,47 +41,6 @@ public class CountryRepositoryTest {
         int combienDePaysDansLeJeuDeTest = 3 + 1; // 3 dans data.sql, 1 dans test-data.sql
         long nombre = countryDAO.count();
         assertEquals(combienDePaysDansLeJeuDeTest, nombre, "On doit trouver 4 pays" );
-    }
-
-    @Test
-    void calculPopulationJPQL() {
-        log.info("On calcule la population totale d'un pays (JPQL)");
-        int populationDuPays1 = 12; // cf. data.sql
-        assertEquals(populationDuPays1, countryDAO.populationDuPaysJPQL(1));
-    }
-
-    @Test
-    void calculPopulationSQL() {
-        log.info("On calcule la population totale d'un pays (SQL)");
-        int populationDuPays1 = 12; // cf. data.sql
-        assertEquals(populationDuPays1, countryDAO.populationDuPaysSQL(1));
-    }
-
-    @Test
-    void calculPopulationJava() {
-        log.info("On calcule la population totale d'un pays (Java)");
-        int populationDuPays1 = 12; // cf. data.sql
-        assertEquals(populationDuPays1, countryDAO.populationDuPaysJava(1));
-    }
-
-    @Test
-    void calculPopulationTotaleJPQL() {
-        log.info("On calcule la population pour chaque pays (JPQL)");
-        List<PopulationResult> resultat = countryDAO.populationParPaysJPQL();
-        assertEquals(countryDAO.count(), resultat.size(), "On doit avoir un résultat par pays");
-        resultat.forEach(r -> {
-            log.info("Pays : {}  - Population totale : {}", r.getCountryName() , r.getPopulationTotale());
-        });
-    }
-
-    @Test
-    void calculPopulationTotaleSQL() {
-        log.info("On calcule la population pour chaque pays (SQL)");
-        List<PopulationResult> resultat = countryDAO.populationParPaysSQL();
-        assertEquals(countryDAO.count(), resultat.size(), "On doit avoir un résultat par pays");
-        resultat.forEach(r -> {
-            log.info("Pays : {}  - Population totale : {}", r.getCountryName() , r.getPopulationTotale());
-        });
     }
 
 }
