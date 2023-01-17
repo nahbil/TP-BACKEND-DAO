@@ -12,7 +12,7 @@ import lombok.extern.log4j.Log4j2;
 import monprojet.dao.*;
 import monprojet.entity.*;
 
-@Component
+//  @Component
 @Log4j2 // Génère le 'logger' pour afficher les messages de trace
 public class ConsoleApp implements CommandLineRunner {
     @Autowired // Auto-initialisé par Spring
