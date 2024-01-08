@@ -1,6 +1,7 @@
 package monprojet.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -23,6 +24,11 @@ public class CityRepositoryTest {
     private CityRepository cityDAO;
 
     @Test
+    void onTrouveLesVillesParLeurNom() {
+        assertNotNull(cityDAO.findByName("Paris"), "Paris est dans data.sql");
+    }
+
+    @Test
     void onTrouveLePaysDesVilles() {
         log.info("On vérifie que les pays des villes sont bien récupérés");
         City paris = cityDAO.findByName("Paris");
@@ -35,15 +41,16 @@ public class CityRepositoryTest {
         log.info("On vérifie que les villes d'un pays sont accessibles");
         City paris = cityDAO.findByName("Paris");
         Country france = countryDAO.findById(1).orElseThrow();
-        assertTrue( france.getCities().contains(paris), "France contient Paris");
+        assertTrue(france.getCities().contains(paris), "France contient Paris");
     }
 
     @Test
-    // L'entity "City" définit une contrainte sur la taille minimum du nom des villes
+    // L'entity "City" définit une contrainte sur la taille minimum du nom des
+    // villes
     void onVerifieLesContraintesDeValidation() {
         log.info("On vérifie que Spring honore les contraintes de validation");
         City city = new City();
-        city.setName("P"); // Ce nom est trop court,  @Size(min = 2) dans City.java
+        city.setName("P"); // Ce nom est trop court, @Size(min = 2) dans City.java
         city.setPopulation(1000000);
         city.setCountry(countryDAO.findById(1).orElseThrow());
         try {
@@ -51,7 +58,7 @@ public class CityRepositoryTest {
             fail("On doit avoir une violation de contrainte d'intégrité");
         } catch (ConstraintViolationException e) {
             log.info("On a reçu l'exception : " + e.getMessage());
-        }    
+        }
     }
 
 }
