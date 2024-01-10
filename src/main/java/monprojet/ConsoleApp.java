@@ -12,6 +12,7 @@ import lombok.extern.log4j.Log4j2;
 import monprojet.dao.*;
 import monprojet.entity.*;
 
+// Dé-commenter la ligne suivante pour que Spring Boot instancie automatiquement cette classe
 //  @Component
 @Log4j2 // Génère le 'logger' pour afficher les messages de trace
 public class ConsoleApp implements CommandLineRunner {
