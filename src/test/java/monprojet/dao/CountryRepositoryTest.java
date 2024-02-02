@@ -35,12 +35,30 @@ public class CountryRepositoryTest {
     }
 
     @Test
+    void sommesDePopDesVilles(){
+        int sommesPop = 0;
+        for (int i = 1; i <= 3; i++){
+            sommesPop += countryDAO.calculDePopulationByCountryId(i);
+        }
+        assertEquals(sommesPop, 57);
+    }
+
+    @Test
     @Sql("test-data.sql") // On peut charger des donnnées spécifiques pour un test
     void onSaitCompterLesEnregistrements() {
         log.info("On compte les enregistrements de la table 'Country'");
         int combienDePaysDansLeJeuDeTest = 3 + 1; // 3 dans data.sql, 1 dans test-data.sql
         long nombre = countryDAO.count();
         assertEquals(combienDePaysDansLeJeuDeTest, nombre, "On doit trouver 4 pays" );
+    }
+
+    @Test
+    public void testGetCountryPopulationList() {
+        List<CountryPopulationProjection> countryPopulationList = countryDAO.getCountryPopulationList();
+        assertNotNull(countryPopulationList);
+        for (CountryPopulationProjection projection : countryPopulationList) {
+            System.out.println("Country: " + projection.getCountryName() + ", Population: " + projection.getPopulation());
+        }
     }
 
 }
